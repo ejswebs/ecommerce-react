@@ -1,24 +1,59 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+
+import { Box, makeStyles } from "@material-ui/core";
+
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import ProductCard from "./components/ProductCard";
+import { productList } from "./mocks/productList";
+import Cart from "./components/Cart";
+
+const useStyles = makeStyles(() => ({
+  appContainer: { width: "100%", height: "100%" },
+  productsList: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    boxSizing: "border-box",
+    height: "calc(100vh - 110px)",
+    padding: "15px",
+    overflow: "auto",
+  },
+}));
 
 function App() {
+  const { appContainer, productsList } = useStyles();
+
+  const [openCart, setOpenCart] = useState(false);
+  const [cartList, setCartList] = useState([]);
+
+  const handleCart = () => {
+    setOpenCart(!openCart);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Box className={appContainer}>
+        <Header handleCart={handleCart} />
+        <Box className={productsList}>
+          {productList?.map((product, i) => (
+            <ProductCard
+              key={i}
+              product={product}
+              cartList={cartList}
+              setCartList={setCartList}
+            />
+          ))}
+        </Box>
+        <Footer />
+      </Box>
+      <Cart
+        openCart={openCart}
+        handleClose={handleCart}
+        cartList={cartList}
+        setCartList={setCartList}
+      ></Cart>
+    </>
   );
 }
 
