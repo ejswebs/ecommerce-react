@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Header = ({ handleCart }) => {
+const Header = ({ handleCart, cartList, total }) => {
   const { appBar, title, menuButton } = useStyles();
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -37,11 +37,16 @@ const Header = ({ handleCart }) => {
   };
 
   const handleClose = () => {
-    handleCart()
     setAnchorEl(null);
   };
 
- 
+  const openCartModal = () => {
+    handleCart()
+    handleClose()
+  }
+
+
+
 
   return (
     <AppBar position="static" className={appBar}>
@@ -60,7 +65,7 @@ const Header = ({ handleCart }) => {
         {true && (
           <>
             <Badge
-              badgeContent={4}
+              badgeContent={cartList.length}
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
@@ -84,8 +89,8 @@ const Header = ({ handleCart }) => {
               open={open}
               onClose={handleClose}
             >
-              <MenuItem>Total: ${}</MenuItem>
-              <MenuItem onClick={handleClose}>Ver Carrito</MenuItem>
+              <MenuItem>Total: $ {total}</MenuItem>
+              <MenuItem onClick={openCartModal}>Ver Carrito</MenuItem>
             </Menu>
           </>
         )}

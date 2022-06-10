@@ -1,5 +1,6 @@
 import { Box, Button, IconButton, makeStyles, Modal } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
+import CartList from "./CartList";
 
 const useStyles = makeStyles(() => ({
   modal: {
@@ -27,11 +28,13 @@ const useStyles = makeStyles(() => ({
     position: "absolute",
     right: "15px",
     top: "15px",
+    zIndex: "100"
   },
+
 }));
 
 const Cart = ({ openCart, handleClose, cartList }) => {
-  const { modal, modalContainer, closeIcon } = useStyles();
+  const { modal, modalContainer, closeIcon, cartBox } = useStyles();
 
   return (
     <Modal
@@ -46,7 +49,7 @@ const Cart = ({ openCart, handleClose, cartList }) => {
           <IconButton onClick={handleClose} className={closeIcon}>
             <Close></Close>
           </IconButton>
-          <Box>asdipaioshdoiasodhoiahsdoihas</Box>
+          <Box className={cartBox}><CartList cartList={cartList}></CartList></Box>
         </Box>
       </>
     </Modal>

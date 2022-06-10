@@ -26,6 +26,7 @@ function App() {
 
   const [openCart, setOpenCart] = useState(false);
   const [cartList, setCartList] = useState([]);
+  const [total, setTotal] = useState(0);
 
   const handleCart = () => {
     setOpenCart(!openCart);
@@ -34,7 +35,7 @@ function App() {
   return (
     <>
       <Box className={appContainer}>
-        <Header handleCart={handleCart} />
+        <Header handleCart={handleCart} cartList={cartList} total={total} />
         <Box className={productsList}>
           {productList?.map((product, i) => (
             <ProductCard
@@ -42,6 +43,8 @@ function App() {
               product={product}
               cartList={cartList}
               setCartList={setCartList}
+              total={total}
+              setTotal={setTotal}
             />
           ))}
         </Box>
