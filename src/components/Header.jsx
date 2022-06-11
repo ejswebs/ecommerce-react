@@ -41,12 +41,9 @@ const Header = ({ handleCart, cartList, total }) => {
   };
 
   const openCartModal = () => {
-    handleCart()
-    handleClose()
-  }
-
-
-
+    handleCart();
+    handleClose();
+  };
 
   return (
     <AppBar position="static" className={appBar}>

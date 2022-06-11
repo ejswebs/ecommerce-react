@@ -1,12 +1,24 @@
-import { Avatar, IconButton, List, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText } from "@material-ui/core";
+import {
+  Avatar,
+  IconButton,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemSecondaryAction,
+  ListItemText,
+} from "@material-ui/core";
 import { Delete, MenuBook } from "@material-ui/icons";
 
-const CartList = ({ cartList }) => {
-  return (
+const CartList = ({ cartList, setCartList, setTotal, total }) => {
+  const deleteItem = (i) => {
+    setTotal(total - cartList[i].price);
+    setCartList(cartList.filter((item, j) => j !== i));
+  };
 
-    <List >
+  return (
+    <List>
       {cartList.map((product, i) => (
-        <ListItem>
+        <ListItem key={i}>
           <ListItemAvatar>
             <Avatar>
               <MenuBook />
@@ -14,18 +26,23 @@ const CartList = ({ cartList }) => {
           </ListItemAvatar>
           <ListItemText
             primary={product.name}
-            secondary={'$ ' + (product.price)}
+            secondary={
+              "Cantidad: " + product.cant + " - Subtotal $ " + product.price
+            }
           />
           <ListItemSecondaryAction>
-            <IconButton edge="end" aria-label="delete">
+            <IconButton
+              edge="end"
+              aria-label="delete"
+              onClick={() => deleteItem(i)}
+            >
               <Delete />
             </IconButton>
           </ListItemSecondaryAction>
-        </ListItem>)
-      )
-      }
+        </ListItem>
+      ))}
     </List>
-  )
-}
+  );
+};
 
-export default CartList
+export default CartList;

@@ -156,4 +156,3 @@ export const productList = [
     category: "scifi",
   },
 ];
-

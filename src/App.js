@@ -55,6 +55,8 @@ function App() {
         handleClose={handleCart}
         cartList={cartList}
         setCartList={setCartList}
+        setTotal={setTotal}
+        total={total}
       ></Cart>
     </>
   );
