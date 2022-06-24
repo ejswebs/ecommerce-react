@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import {
   makeStyles,
@@ -11,6 +11,7 @@ import {
   Badge,
 } from "@material-ui/core";
 import { ShoppingCart, DoubleArrow } from "@material-ui/icons";
+import GlobalContext from "../context/GlobalContext";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -25,7 +26,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Header = ({ handleCart, cartList, total }) => {
+const Header = () => {
+  const { handleCart, cartList, total } = useContext(GlobalContext);
+
   const { appBar, title, menuButton } = useStyles();
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -44,6 +47,8 @@ const Header = ({ handleCart, cartList, total }) => {
     handleCart();
     handleClose();
   };
+
+  console.log(open)
 
   return (
     <AppBar position="static" className={appBar}>

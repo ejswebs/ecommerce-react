@@ -8,8 +8,13 @@ import {
   ListItemText,
 } from "@material-ui/core";
 import { Delete, MenuBook } from "@material-ui/icons";
+import { useContext } from "react";
+import GlobalContext from "../context/GlobalContext";
 
-const CartList = ({ cartList, setCartList, setTotal, total }) => {
+const CartList = () => {
+  const { cartList, setCartList, setTotal, total, confirm } =
+    useContext(GlobalContext);
+
   const deleteItem = (i) => {
     setTotal(total - cartList[i].price);
     setCartList(cartList.filter((item, j) => j !== i));
@@ -27,18 +32,22 @@ const CartList = ({ cartList, setCartList, setTotal, total }) => {
           <ListItemText
             primary={product.name}
             secondary={
-              "Cantidad: " + product.cant + " - Subtotal $ " + product.price
+              "Cantidad: " +
+              product.cant +
+              (!confirm ? " - Subtotal $ " + product.price : "")
             }
           />
-          <ListItemSecondaryAction>
-            <IconButton
-              edge="end"
-              aria-label="delete"
-              onClick={() => deleteItem(i)}
-            >
-              <Delete />
-            </IconButton>
-          </ListItemSecondaryAction>
+          {!confirm && (
+            <ListItemSecondaryAction>
+              <IconButton
+                edge="end"
+                aria-label="delete"
+                onClick={() => deleteItem(i)}
+              >
+                <Delete />
+              </IconButton>
+            </ListItemSecondaryAction>
+          )}
         </ListItem>
       ))}
     </List>

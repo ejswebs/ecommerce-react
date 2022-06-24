@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import {
   Box,
-  Button,
   IconButton,
   makeStyles,
   Modal,
@@ -12,6 +11,7 @@ import { Close } from "@material-ui/icons";
 
 import CartList from "./CartList";
 import SellForm from "./SellForm";
+import GlobalContext from "../context/GlobalContext";
 
 const useStyles = makeStyles(() => ({
   modal: {
@@ -47,6 +47,7 @@ const useStyles = makeStyles(() => ({
   cartBox: {
     height: "75%",
     width: "80%",
+    overflow: "auto",
   },
   emptyCart: {
     width: "100%",
@@ -57,26 +58,23 @@ const useStyles = makeStyles(() => ({
     fontSize: "4em",
   },
   infoText: {
-    width: "100%",
+    width: "80%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     fontSize: "1.5em",
+    fontFamily: "K2D, sans-serif",
+    textAlign: "center",
   },
 }));
 
-const Cart = ({
-  openCart,
-  handleClose,
-  cartList,
-  setCartList,
-  setTotal,
-  total,
-}) => {
+const Cart = () => {
+  const { openCart, handleCart, cartList, total, confirm } =
+    useContext(GlobalContext);
+
   const { modal, modalContainer, closeIcon, cartBox, emptyCart, infoText } =
     useStyles();
 
-  const [confirm, setConfirm] = useState(false);
   const [client, setClient] = useState();
   const [date, setDate] = useState();
 
@@ -84,46 +82,53 @@ const Cart = ({
     <Modal
       className={modal}
       open={openCart}
-      onClose={handleClose}
+      onClose={handleCart}
       aria-labelledby="simple-modal-title"
       aria-describedby="simple-modal-description"
     >
       <>
         <Box className={modalContainer}>
-          <IconButton onClick={handleClose} className={closeIcon}>
+          <IconButton onClick={handleCart} className={closeIcon}>
             <Close />
           </IconButton>
           {cartList.length > 0 ? (
             <>
               {confirm ? (
-                <Typography className={infoText}>
-                  Felicidades {client}! Podes pasar el {date} a retirar los
-                  siguientes productos:
-                </Typography>
+                <>
+                  <Typography className={infoText}>
+                    Felicidades {client}! Podes pasar el {date} a retirar los
+                    siguientes productos:
+                  </Typography>
+                  <Box className={cartBox}>
+                    <CartList />
+                  </Box>
+                </>
               ) : (
-                <Typography>Productos agregados:</Typography>
+                <>
+                  <Typography>Productos agregados:</Typography>
+                  <Box className={cartBox}>
+                    <CartList />
+                  </Box>
+                </>
               )}
-              <Box className={cartBox}>
-                <CartList
-                  cartList={cartList}
-                  setCartList={setCartList}
-                  total={total}
-                  setTotal={setTotal}
-                />
-              </Box>
               {confirm ? (
-                <Box />
+                <>
+                  <Typography className={infoText}>
+                    Te esperamos en Moreno 2502 - Resistencia
+                  </Typography>
+                  <Typography className={infoText}>
+                    o comunicate al 3624 721322 para coordinar otro medio de
+                    entrega
+                  </Typography>
+                </>
               ) : (
                 <>
                   <Typography>El total a abonar es de $ {total}</Typography>
                   <SellForm
                     client={client}
                     setClient={setClient}
-                    cartList={cartList}
                     date={date}
                     setDate={setDate}
-                    confirm={confirm}
-                    setConfirm={setConfirm}
                   />
                 </>
               )}

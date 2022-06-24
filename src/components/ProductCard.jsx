@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import {
   makeStyles,
@@ -11,6 +11,7 @@ import {
   Typography,
   TextField,
 } from "@material-ui/core";
+import GlobalContext from "../context/GlobalContext";
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -47,18 +48,21 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const ProductCard = ({ product, cartList, setCartList, total, setTotal }) => {
+const ProductCard = ({ product }) => {
+  const { cartList, setCartList, total, setTotal } = useContext(GlobalContext);
+
   const { card, media, descriptionBox, cardFooter, cantInput } = useStyles();
   const [cant, setCant] = useState(0);
 
   const addToCart = () => {
     if (cant > 0) {
-      const price = parseFloat((product.price * 211.5).toFixed(2) * cant);
+      const price = parseFloat(product.price * 211.5).toFixed(2) * cant;
       setTotal(total + price);
       setCartList([
         ...cartList,
         { name: product.name, price: price, cant: cant },
       ]);
+      setCant(0);
     }
   };
 
@@ -89,7 +93,12 @@ const ProductCard = ({ product, cartList, setCartList, total, setTotal }) => {
           value={cant}
         />
         <Button onClick={() => setCant(cant + 1)}>+</Button>
-        <Button onClick={addToCart} size="small" color="primary">
+        <Button
+          onClick={addToCart}
+          size="small"
+          color="primary"
+          disabled={cant === 0}
+        >
           AÑADIR
         </Button>
       </CardActions>

@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { Box, makeStyles } from "@material-ui/core";
 
 import Header from "./components/Header";
@@ -7,6 +5,7 @@ import Footer from "./components/Footer";
 import ProductCard from "./components/ProductCard";
 import { productList } from "./mocks/productList";
 import Cart from "./components/Cart";
+import { GlobalProvider } from "./context/GlobalContext";
 
 const useStyles = makeStyles(() => ({
   appContainer: { width: "100%", height: "100%" },
@@ -24,41 +23,19 @@ const useStyles = makeStyles(() => ({
 function App() {
   const { appContainer, productsList } = useStyles();
 
-  const [openCart, setOpenCart] = useState(false);
-  const [cartList, setCartList] = useState([]);
-  const [total, setTotal] = useState(0);
-
-  const handleCart = () => {
-    setOpenCart(!openCart);
-  };
-
   return (
-    <>
+    <GlobalProvider>
+      <Header />
       <Box className={appContainer}>
-        <Header handleCart={handleCart} cartList={cartList} total={total} />
         <Box className={productsList}>
           {productList?.map((product, i) => (
-            <ProductCard
-              key={i}
-              product={product}
-              cartList={cartList}
-              setCartList={setCartList}
-              total={total}
-              setTotal={setTotal}
-            />
+            <ProductCard key={i} product={product} />
           ))}
         </Box>
         <Footer />
       </Box>
-      <Cart
-        openCart={openCart}
-        handleClose={handleCart}
-        cartList={cartList}
-        setCartList={setCartList}
-        setTotal={setTotal}
-        total={total}
-      ></Cart>
-    </>
+      <Cart />
+    </GlobalProvider>
   );
 }
 
