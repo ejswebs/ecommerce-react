@@ -48,8 +48,6 @@ const Header = () => {
     handleClose();
   };
 
-  console.log(open)
-
   return (
     <AppBar position="static" className={appBar}>
       <Toolbar>

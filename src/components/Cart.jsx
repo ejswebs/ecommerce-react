@@ -77,6 +77,7 @@ const Cart = () => {
 
   const [client, setClient] = useState();
   const [date, setDate] = useState();
+  const [paidRef, setPaidRef] = useState();
 
   return (
     <Modal
@@ -129,6 +130,8 @@ const Cart = () => {
                     setClient={setClient}
                     date={date}
                     setDate={setDate}
+                    paidRef={paidRef}
+                    setPaidRef={setPaidRef}
                   />
                 </>
               )}

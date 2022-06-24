@@ -14,57 +14,16 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-### `npm test`
+##### ECOMMERCE DE LIBROS #####
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Frikitona es una SPA creada en React para la venta de Libros
+Tiene la posibilidad de sumar muchas funcionalidades, como pago en linea, envios a domicilio, y secciones de productos.
 
-### `npm run build`
+Inicialmente se desarrolló como prueba de concepto y los estilos son minimalistas ya que se busca tener un template que sea facilmente adaptable a cualquier marca / rubro.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Se utiliza la librería MUI (en su versión 4 por una cuestion de comodidad para el estilado)
+Para el manejo de los estados globales se generó un Contexto simple, el mismo es escalable y puede sumar nuevas funcionalidades en caso que el proyecto lo requiera.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Se evitó el manejo de Bases de Datos ya que esto implicaría cumplir con la legislación vigente en Ley 25.326 para el manejo de los datos ingresados por el usuario.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+La lista de Productos puede ser facilmente modificada por cualquier otra que respete la misma estructura minima ({ id: , name: , description: , price: , img: }) dentro de src/mocks/productList.jsx
